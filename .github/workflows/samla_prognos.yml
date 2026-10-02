@@ -9,7 +9,7 @@ name: Samla väderprognos
 
 on:
   schedule:
-    - cron: "15 * * * *"   # varje timme, kvart över (tiden anges i UTC)
+     - cron: "23 * * * *"   # varje timme, 23 minuter över (UTC)
   workflow_dispatch:        # gör att flödet också kan startas manuellt
 
 permissions:
