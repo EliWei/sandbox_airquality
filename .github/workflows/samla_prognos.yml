@@ -1,15 +1,18 @@
 # Samla väderprognos
 
-# Varje timme startar GitHub en tillfällig dator, hämtar repot, 
-# installerar Python och paketen, kör skriptet, och committar den 
-# nya prognosfilen tillbaka till repot. Kvart över valdes för 
-# att många flöden körs exakt på heltimmen, vilket kan ge förseningar.
+# Varje hel timme skickar cron-job.org en signal till GitHub som startar
+# det här flödet (workflow_dispatch). GitHub startar då en tillfällig dator,
+# hämtar repot, installerar Python och paketen, kör skriptet, och committar
+# den nya prognosfilen tillbaka till repot.
+#
+# GitHubs eget schema (schedule) användes först, men körningarna
+# försenades och hoppades ofta över, därför används en extern trigger.
+# Åtkomstnyckeln som cron-job.org använder går ut 2026-12-02.
+# Flödet kan också startas manuellt under fliken Actions.
 
 name: Samla väderprognos
 
 on:
-  schedule:
-     - cron: "23 * * * *"   # varje timme, 23 minuter över (UTC)
   workflow_dispatch:        # gör att flödet också kan startas manuellt
 
 permissions:
